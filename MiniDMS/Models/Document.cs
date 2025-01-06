@@ -8,6 +8,9 @@ namespace MiniDMS.Models
         public string? FileName { get; set; }
         [DataType(DataType.Date)]
         public DateTime UploadDate { get; set; }
+        public bool IsFolder { get; set; }
         public string Owner { get; set; } = String.Empty;
+        public int ParentId { get; set; }
+        public ICollection<Document>? SubFiles { get; set; }
     }
 }
