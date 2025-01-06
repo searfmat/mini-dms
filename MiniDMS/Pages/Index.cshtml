@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{folder?}"
 @using MiniDMS.Models
 @model IndexModel
 @{
@@ -6,6 +6,7 @@
 }
 
 <div class="text-center">
+    <h1>@Model._folder</h1>
     @if(User.Identity.IsAuthenticated)
     {
         <h3>@User.Identity.Name Files</h3>

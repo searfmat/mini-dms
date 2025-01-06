@@ -15,8 +15,12 @@ namespace MiniDMS.Pages
             _context = context;
         }
         public IList<Document> Documents { get; set; } = default!;
-        public async Task OnGetAsync()
+        public string _folder;
+        public async Task OnGetAsync(string folder)
         {
+            _folder = folder;
+
+
             if (User.Identity.IsAuthenticated)
             {
                 Documents = await _context.Document.Where(x => x.Owner.Equals(User.Identity.Name)).ToListAsync();

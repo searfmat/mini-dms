@@ -7,23 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniDMS.Data;
 using MiniDMS.Models;
-using NuGet.Protocol.Providers;
 
 namespace MiniDMS.Pages.Documents
 {
-    public class CreateModel : PageModel
+    public class AddFolderModel : PageModel
     {
-        private readonly MiniDMS.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CreateModel(MiniDMS.Data.ApplicationDbContext context)
+        public AddFolderModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public string Owner { get; set; }
         public IActionResult OnGet()
         {
-            Owner = User.Identity.Name;
             return Page();
         }
 
@@ -38,7 +35,7 @@ namespace MiniDMS.Pages.Documents
                 return Page();
             }
 
-            Document.IsFolder = false;
+            Document.IsFolder = true;
             _context.Document.Add(Document);
             await _context.SaveChangesAsync();
 
