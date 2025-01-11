@@ -10,6 +10,7 @@ namespace MiniDMS.Data
             : base(options)
         {
         }
-        public DbSet<MiniDMS.Models.Document> Document { get; set; } = default!;
+        public DbSet<MiniDMS.Models.FileModel> Document { get; set; } = default!;
+        public IEnumerable<object> File { get; internal set; }
     }
 }

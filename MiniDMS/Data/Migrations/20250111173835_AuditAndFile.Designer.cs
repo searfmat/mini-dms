@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniDMS.Data;
 
@@ -11,9 +12,11 @@ using MiniDMS.Data;
 namespace MiniDMS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250111173835_AuditAndFile")]
+    partial class AuditAndFile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,17 +242,17 @@ namespace MiniDMS.Data.Migrations
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FileModelId")
+                    b.Property<int?>("FileId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FileModelId");
+                    b.HasIndex("FileId");
 
                     b.ToTable("AuditRecord");
                 });
 
-            modelBuilder.Entity("MiniDMS.Models.FileModel", b =>
+            modelBuilder.Entity("MiniDMS.Models.File", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -260,7 +263,7 @@ namespace MiniDMS.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FileModelId")
+                    b.Property<int?>("FileId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileName")
@@ -289,7 +292,7 @@ namespace MiniDMS.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FileModelId");
+                    b.HasIndex("FileId");
 
                     b.ToTable("Document");
                 });
@@ -347,19 +350,19 @@ namespace MiniDMS.Data.Migrations
 
             modelBuilder.Entity("MiniDMS.Models.AuditRecord", b =>
                 {
-                    b.HasOne("MiniDMS.Models.FileModel", null)
+                    b.HasOne("MiniDMS.Models.File", null)
                         .WithMany("AuditRecords")
-                        .HasForeignKey("FileModelId");
+                        .HasForeignKey("FileId");
                 });
 
-            modelBuilder.Entity("MiniDMS.Models.FileModel", b =>
+            modelBuilder.Entity("MiniDMS.Models.File", b =>
                 {
-                    b.HasOne("MiniDMS.Models.FileModel", null)
+                    b.HasOne("MiniDMS.Models.File", null)
                         .WithMany("SubFiles")
-                        .HasForeignKey("FileModelId");
+                        .HasForeignKey("FileId");
                 });
 
-            modelBuilder.Entity("MiniDMS.Models.FileModel", b =>
+            modelBuilder.Entity("MiniDMS.Models.File", b =>
                 {
                     b.Navigation("AuditRecords");
 

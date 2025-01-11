@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniDMS.Data;
 using MiniDMS.Models;
-using NuGet.Protocol.Providers;
 
-namespace MiniDMS.Pages.Documents
+namespace MiniDMS.Pages.Files
 {
     public class CreateModel : PageModel
     {
@@ -20,15 +19,13 @@ namespace MiniDMS.Pages.Documents
             _context = context;
         }
 
-        public string Owner { get; set; }
         public IActionResult OnGet()
         {
-            Owner = User.Identity.Name;
             return Page();
         }
 
         [BindProperty]
-        public Document Document { get; set; } = default!;
+        public FileModel FileModel { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -38,8 +35,7 @@ namespace MiniDMS.Pages.Documents
                 return Page();
             }
 
-            Document.IsFolder = false;
-            _context.Document.Add(Document);
+            _context.Document.Add(FileModel);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

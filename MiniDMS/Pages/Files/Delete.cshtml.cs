@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MiniDMS.Data;
 using MiniDMS.Models;
 
-namespace MiniDMS.Pages.Documents
+namespace MiniDMS.Pages.Files
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace MiniDMS.Pages.Documents
         }
 
         [BindProperty]
-        public Document Document { get; set; } = default!;
+        public FileModel FileModel { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace MiniDMS.Pages.Documents
                 return NotFound();
             }
 
-            var document = await _context.Document.FirstOrDefaultAsync(m => m.Id == id);
+            var filemodel = await _context.Document.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (document == null)
+            if (filemodel == null)
             {
                 return NotFound();
             }
             else
             {
-                Document = document;
+                FileModel = filemodel;
             }
             return Page();
         }
@@ -49,11 +49,11 @@ namespace MiniDMS.Pages.Documents
                 return NotFound();
             }
 
-            var document = await _context.Document.FindAsync(id);
-            if (document != null)
+            var filemodel = await _context.Document.FindAsync(id);
+            if (filemodel != null)
             {
-                Document = document;
-                _context.Document.Remove(Document);
+                FileModel = filemodel;
+                _context.Document.Remove(FileModel);
                 await _context.SaveChangesAsync();
             }
 

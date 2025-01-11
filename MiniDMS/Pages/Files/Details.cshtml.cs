@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MiniDMS.Data;
 using MiniDMS.Models;
 
-namespace MiniDMS.Pages.Documents
+namespace MiniDMS.Pages.Files
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace MiniDMS.Pages.Documents
             _context = context;
         }
 
-        public Document Document { get; set; } = default!;
+        public FileModel FileModel { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace MiniDMS.Pages.Documents
                 return NotFound();
             }
 
-            var document = await _context.Document.FirstOrDefaultAsync(m => m.Id == id);
-            if (document == null)
+            var filemodel = await _context.Document.FirstOrDefaultAsync(m => m.Id == id);
+            if (filemodel == null)
             {
                 return NotFound();
             }
             else
             {
-                Document = document;
+                FileModel = filemodel;
             }
             return Page();
         }
