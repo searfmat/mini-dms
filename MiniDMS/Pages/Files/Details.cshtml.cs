@@ -38,9 +38,12 @@ namespace MiniDMS.Pages.Files
                 var auditRecord = new AuditRecord();
                 auditRecord.Event = "View";
                 auditRecord.User = User.Identity.Name;
-                filemodel.AuditRecords.Add(auditRecord);
+                auditRecord.FileModel = filemodel;
 
+                _context.AuditRecords.Add(auditRecord);
                 await _context.SaveChangesAsync();
+                filemodel.AuditRecords = await _context.AuditRecords.Where(x => x.FileModel.Id == filemodel.Id).ToListAsync();
+           
                 FileModel = filemodel;
             }
             return Page();

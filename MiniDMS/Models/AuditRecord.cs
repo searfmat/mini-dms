@@ -9,5 +9,7 @@ namespace MiniDMS.Models
         [DataType(DataType.Date)]
         public DateTime EventDate { get; set; } = DateTime.Now;
         public string User {  get; set; } = String.Empty;
+
+        public FileModel? FileModel { get; set; } 
     }
 }

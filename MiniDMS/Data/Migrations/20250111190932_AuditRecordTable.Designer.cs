@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniDMS.Data;
 
@@ -11,9 +12,11 @@ using MiniDMS.Data;
 namespace MiniDMS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250111190932_AuditRecordTable")]
+    partial class AuditRecordTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -351,11 +354,9 @@ namespace MiniDMS.Data.Migrations
 
             modelBuilder.Entity("MiniDMS.Models.AuditRecord", b =>
                 {
-                    b.HasOne("MiniDMS.Models.FileModel", "FileModel")
+                    b.HasOne("MiniDMS.Models.FileModel", null)
                         .WithMany("AuditRecords")
                         .HasForeignKey("FileModelId");
-
-                    b.Navigation("FileModel");
                 });
 
             modelBuilder.Entity("MiniDMS.Models.FileModel", b =>

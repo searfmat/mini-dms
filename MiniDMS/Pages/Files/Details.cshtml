@@ -61,6 +61,11 @@
         </dd>
     </dl>
 </div>
+@Model.FileModel.AuditRecords.Count
+@foreach(var audit in Model.FileModel.AuditRecords)
+{
+    <p>@audit.Event @audit.EventDate @audit.User</p>
+}
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.FileModel.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MiniDMS.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MiniDMS.Data
 {
@@ -11,6 +12,7 @@ namespace MiniDMS.Data
         {
         }
         public DbSet<MiniDMS.Models.FileModel> Document { get; set; } = default!;
-        public IEnumerable<object> File { get; internal set; }
+
+        public virtual DbSet<AuditRecord> AuditRecords { get; set; }
     }
 }
