@@ -8,5 +8,6 @@ namespace MiniDMS.Models
         public string Event { get; set; } = String.Empty;
         [DataType(DataType.Date)]
         public DateTime EventDate { get; set; } = DateTime.Now;
+        public string User {  get; set; } = String.Empty;
     }
 }

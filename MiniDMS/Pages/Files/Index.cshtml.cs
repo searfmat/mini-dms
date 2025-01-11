@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MiniDMS.Data;
 using MiniDMS.Models;
+using System.Collections.Generic;
 
 namespace MiniDMS.Pages.Files
 {
@@ -22,7 +23,7 @@ namespace MiniDMS.Pages.Files
         public IList<FileModel> FileModel { get;set; } = default!;
 
         public async Task OnGetAsync()
-        {
+        { 
             FileModel = await _context.Document.ToListAsync();
         }
     }

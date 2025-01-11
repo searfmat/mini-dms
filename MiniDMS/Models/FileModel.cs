@@ -15,7 +15,7 @@ namespace MiniDMS.Models
         public string Owner { get; set; } = String.Empty;
         public int ParentId { get; set; } = -1;
         public ICollection<FileModel> SubFiles { get; set; } = new List<FileModel>();
-        public ICollection<string> Whitelist { get; set; } = new List<string>();
+        public List<string> Whitelist { get; set; } = new();
         public ICollection<AuditRecord> AuditRecords { get; set; } = new List<AuditRecord>();
     }
 }
