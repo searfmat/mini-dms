@@ -55,7 +55,7 @@
                 }
             </tbody>
         </table>
-        <a class="btn btn-primary" asp-page="Files/Create">Add Document</a>
+        <a class="btn btn-primary" asp-route-id="@Model._folder" asp-page="Files/Create">Add Document</a>
         <a class="btn btn-secondary" asp-page="Files/Create">New Folder</a>
         <a class="btn btn-danger" asp-page="Files/Index">Admin Documents</a>
     }

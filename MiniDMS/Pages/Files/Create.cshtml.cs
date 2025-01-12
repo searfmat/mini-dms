@@ -18,9 +18,10 @@ namespace MiniDMS.Pages.Files
         {
             _context = context;
         }
-
-        public IActionResult OnGet()
+        public int? _id;
+        public IActionResult OnGet(int? id)
         {
+            _id = id;
             return Page();
         }
 
@@ -38,7 +39,7 @@ namespace MiniDMS.Pages.Files
             _context.Document.Add(FileModel);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
     }
 }

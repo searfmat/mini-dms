@@ -40,12 +40,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="FileModel.Owner" class="control-label"></label>
-                <input asp-for="FileModel.Owner" class="form-control" />
+                <input asp-for="FileModel.Owner" class="form-control" value="@User.Identity.Name"/>
                 <span asp-validation-for="FileModel.Owner" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FileModel.ParentId" class="control-label"></label>
-                <input asp-for="FileModel.ParentId" class="form-control" />
+                <input asp-for="FileModel.ParentId" class="form-control" value="@Model._id"/>
                 <span asp-validation-for="FileModel.ParentId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -61,7 +61,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-area="" asp-route-folder="@Model._id" asp-page="/Index">Back to List</a>
 </div>
 
 @section Scripts {
