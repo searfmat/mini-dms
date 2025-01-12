@@ -25,10 +25,10 @@ namespace MiniDMS.Pages
         public int? _parent;
         public async Task OnGetAsync(int? folder, int? parent)
         {
-            _folder = folder == null ? -1 : folder;
-            _parent = _folder != -1 ?  _context.Document.Where(x => x.Id == _folder).FirstOrDefault().ParentId : -1;
+            _folder = folder == null ? 0 : folder;
+            _parent = _folder != 0 ?  _context.Document.Where(x => x.Id == _folder).FirstOrDefault().ParentId : 0;
             
-            Files = await _context.Document.Where(x => x.Owner.Equals(User.Identity.Name) && x.ParentId.Equals(_folder)).ToListAsync();
+            Files = await _context.Document.Where(x => x.Owner.Equals(User.Identity.Name) && x.ParentId.Equals(_folder)).OrderByDescending(y => y.IsFolder).ToListAsync();
 
         }
     }

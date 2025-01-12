@@ -53,6 +53,12 @@ namespace MiniDMS.Pages.Files
             if (filemodel != null)
             {
                 FileModel = filemodel;
+                var auditRecords = await _context.AuditRecords.Where(x => x.FileModel.Id == filemodel.Id).ToListAsync();
+                foreach (var auditRecord in auditRecords)
+                {
+                    _context.AuditRecords.Remove(auditRecord);
+                }
+                await _context.SaveChangesAsync();
                 _context.Document.Remove(FileModel);
                 await _context.SaveChangesAsync();
             }

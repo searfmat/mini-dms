@@ -13,7 +13,7 @@ namespace MiniDMS.Models
         public double Version { get; set; } = 1.0;
         public bool IsFolder { get; set; } = false;
         public string Owner { get; set; } = String.Empty;
-        public int ParentId { get; set; } = -1;
+        public int ParentId { get; set; } = 0;
         public ICollection<FileModel> SubFiles { get; set; } = new List<FileModel>();
         public List<string> Whitelist { get; set; } = new();
         public ICollection<AuditRecord> AuditRecords { get; set; } = new List<AuditRecord>();

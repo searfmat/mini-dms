@@ -12,7 +12,7 @@
         <table class="table table-hover border">
             <thead>
                 <tr>
-                    <th>Type</th>
+                    <th> </th>
                     <th>Filename</th>
                     <th>Upload Date</th>
                     <th>Owner</th>
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 <!-- Back button. Filler <td> for styles. -->
-                @if(Model._folder != -1)
+                @if(Model._folder != 0)
                 {
                     <tr>
                         <td>
@@ -37,14 +37,14 @@
                        
                         @if (file.IsFolder)
                         {
-                            <td>Folder</td>
+                            <th><i class="bi bi-folder"></i></th>
                             <td>
                                 <a asp-page="" asp-route-folder="@file.Id">@file.FileName</a>
                             </td>
                         }
                         else
                         {
-                            <td>File</td>
+                            <th><i class="bi bi-file-earmark"></i></th>
                             <td>
                                 <a asp-page="Files/Details" asp-route-id="@file.Id">@file.FileName</a>
                             </td>
