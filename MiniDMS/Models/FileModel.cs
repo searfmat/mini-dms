@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MiniDMS.Models
 {
     public class FileModel
     {
         public int Id { get; set; }
+
+        [DisplayName("Name")]
         public string FileName { get; set; } = String.Empty;
         [DataType(DataType.Date)]
         public DateTime UploadDate { get; set; } = DateTime.Now;
