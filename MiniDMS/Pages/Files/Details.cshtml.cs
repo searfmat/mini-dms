@@ -20,6 +20,16 @@ namespace MiniDMS.Pages.Files
         public async Task<IActionResult> OnGetDownload(int id)
         {
             var fileModel = _context.Document.First(x => x.Id == id);
+
+            var auditRecord = new AuditRecord()
+            {
+                Event = "Download",
+                User = User.Identity.Name,
+                FileModel = fileModel,
+            };
+            _context.AuditRecords.Add(auditRecord);
+            await _context.SaveChangesAsync();
+
             string filePath = fileModel.FilePath;
             var memory = new MemoryStream();
             using (var stream = new FileStream(filePath, FileMode.Open))
