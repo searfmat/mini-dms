@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using MiniDMS.Data.Migrations;
 using MiniDMS.Models;
 
 namespace MiniDMS.Pages.Files
@@ -16,6 +17,29 @@ namespace MiniDMS.Pages.Files
 
         public FileModel FileModel { get; set; } = default!;
 
+        public async Task<IActionResult> OnGetDownload(int id)
+        {
+            var fileModel = _context.Document.First(x => x.Id == id);
+
+            var auditRecord = new AuditRecord()
+            {
+                Event = "Download",
+                User = User.Identity.Name,
+                FileModel = fileModel,
+            };
+            _context.AuditRecords.Add(auditRecord);
+            await _context.SaveChangesAsync();
+
+            string filePath = fileModel.FilePath;
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+
+            return File(memory, "application/octet-stream", Path.GetFileName(filePath));
+        }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
