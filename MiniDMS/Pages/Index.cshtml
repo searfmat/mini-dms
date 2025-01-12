@@ -1,4 +1,4 @@
-﻿@page "{folder?}"
+﻿@page
 @using MiniDMS.Models
 @model IndexModel
 @{
@@ -9,30 +9,55 @@
     @if(User.Identity.IsAuthenticated)
     {
         <h3>@User.Identity.Name Files</h3>
-        <table class="table table-hover">
+        <table class="table table-hover border">
             <thead>
                 <tr>
+                    <th>Type</th>
                     <th>Filename</th>
                     <th>Upload Date</th>
                     <th>Owner</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach(FileModel document in Model.Files)
+                <!-- Back button. Filler <td> for styles. -->
+                @if(Model._folder != -1)
                 {
                     <tr>
                         <td>
-                            <a asp-page="Documents/Details" asp-route-id="@document.Id">@document.FileName</a> 
+                            <a asp-page="" asp-route-folder="@Model._parent"> . . </a>
                         </td>
-                        <td>@document.UploadDate</td>
-                        <td>@document.Owner</td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                }
+                @foreach(FileModel file in Model.Files)
+                {
+                    <tr>
+                       
+                        @if (file.IsFolder)
+                        {
+                            <td>Folder</td>
+                            <td>
+                                <a asp-page="" asp-route-folder="@file.Id">@file.FileName</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>File</td>
+                            <td>
+                                <a asp-page="Files/Details" asp-route-id="@file.Id">@file.FileName</a>
+                            </td>
+                        }
+                        <td>@file.UploadDate</td>
+                        <td>@file.Owner</td>
                     </tr>
                 }
             </tbody>
         </table>
-        <a class="btn btn-primary" asp-page="Documents/Create">Add Document</a>
-        <a class="btn btn-secondary" asp-page="Documents/Create">New Folder</a>
-        <a class="btn btn-danger" asp-page="Documents/Index">Admin Documents</a>
+        <a class="btn btn-primary" asp-page="Files/Create">Add Document</a>
+        <a class="btn btn-secondary" asp-page="Files/Create">New Folder</a>
+        <a class="btn btn-danger" asp-page="Files/Index">Admin Documents</a>
     }
     else
     {

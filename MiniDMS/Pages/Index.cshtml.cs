@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MiniDMS.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Policy;
 using System.Web;
 
@@ -18,11 +19,17 @@ namespace MiniDMS.Pages
         {
             _context = context;
         }
-        public IList<Models.FileModel> Files { get; set; } = new List<Models.FileModel>();
-        private string _folder;
-        public async Task OnGetAsync(string folder)
+        public IList<FileModel> Files { get; set; } = new List<FileModel>();
+
+        public int? _folder;
+        public int? _parent;
+        public async Task OnGetAsync(int? folder, int? parent)
         {
-            _folder = folder;
+            _folder = folder == null ? -1 : folder;
+            _parent = _folder != -1 ?  _context.Document.Where(x => x.Id == _folder).FirstOrDefault().ParentId : -1;
+            
+            Files = await _context.Document.Where(x => x.Owner.Equals(User.Identity.Name) && x.ParentId.Equals(_folder)).ToListAsync();
+
         }
     }
 }

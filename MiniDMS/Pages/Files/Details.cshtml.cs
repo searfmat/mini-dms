@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using MiniDMS.Data;
 using MiniDMS.Models;
 
 namespace MiniDMS.Pages.Files
@@ -35,13 +30,19 @@ namespace MiniDMS.Pages.Files
             }
             else
             {
-                var auditRecord = new AuditRecord();
-                auditRecord.Event = "View";
-                auditRecord.User = User.Identity.Name;
-                auditRecord.FileModel = filemodel;
+                // Create a new view audit record. Add to list
+                var auditRecord = new AuditRecord() 
+                {
+                    Event = "View",
+                    User = User.Identity.Name,
+                    FileModel = filemodel
+                };
 
                 _context.AuditRecords.Add(auditRecord);
+                //Whitelist test please remove
+                //filemodel.Whitelist.Add("test user");
                 await _context.SaveChangesAsync();
+
                 filemodel.AuditRecords = await _context.AuditRecords.Where(x => x.FileModel.Id == filemodel.Id).ToListAsync();
            
                 FileModel = filemodel;
