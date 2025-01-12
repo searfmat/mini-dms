@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MiniDMS.Data;
 using MiniDMS.Models;
 
@@ -59,10 +60,14 @@ namespace MiniDMS.Pages.Files
                     _context.AuditRecords.Remove(auditRecord);
                 }
                 await _context.SaveChangesAsync();
-                System.IO.File.Delete(filemodel.FilePath);
-                
-                _context.Document.Remove(FileModel);
-                await _context.SaveChangesAsync();
+
+                if (!filemodel.FilePath.IsNullOrEmpty())
+                {
+                    System.IO.File.Delete(filemodel.FilePath);
+
+                    _context.Document.Remove(FileModel);
+                    await _context.SaveChangesAsync();
+                }
             }
 
             return RedirectToPage("./Index");

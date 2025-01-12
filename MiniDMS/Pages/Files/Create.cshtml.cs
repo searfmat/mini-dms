@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -44,11 +45,14 @@ namespace MiniDMS.Pages.Files
             if(_id != null) FileModel.ParentId = (int)_id;
             var userFolder = Path.Combine(environment.WebRootPath, "documents", User.Identity.Name);
             Directory.CreateDirectory(userFolder);
-            var userFile = Path.Combine(userFolder, FormFile.FileName);
+            var userFile = Path.Combine(userFolder, _id.ToString() +  FormFile.FileName);
             using var fileStream = new FileStream(userFile, FileMode.Create);
             await FormFile.CopyToAsync(fileStream);
 
-            FileModel.FilePath = userFile;
+
+            FileModel.FilePath = userFile.ToString();
+
+            Debug.WriteLine("DEBUGGGING ::::::::::::::::::::: " + FileModel.FilePath);
             FileModel.Owner = User.Identity.Name;
            
             _context.Document.Add(FileModel);
