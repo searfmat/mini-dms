@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FileModel.FileName" class="control-label"></label>
@@ -20,12 +20,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="FileModel.UploadDate" class="control-label"></label>
-                <input asp-for="FileModel.UploadDate" class="form-control" value="@DateTime.Now" disabled readonly />
+                <input asp-for="FileModel.UploadDate" class="form-control" value="@Model._date" disabled readonly />
                 <span asp-validation-for="FileModel.UploadDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FileModel.CreateDate" class="control-label"></label>
-                <input asp-for="FileModel.CreateDate" class="form-control" value="@DateTime.Now"/>
+                <input asp-for="FileModel.CreateDate" class="form-control" value="@Model._date" />
                 <span asp-validation-for="FileModel.CreateDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,6 +43,11 @@
                 <label asp-for="FileModel.Whitelist" class="control-label"></label>
                 <input asp-for="FileModel.Whitelist" class="form-control" disabled readonly value="Not yet implemented."/>
                 <span asp-validation-for="FileModel.Whitelist" class="text-danger" ></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FormFile" class="control-label"></label>
+                <input asp-for="FormFile" class="form-control" accept=".pdf, .docx" />
+                <span class=>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
