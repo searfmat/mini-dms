@@ -43,7 +43,7 @@ namespace MiniDMS.Pages.Files
                 //filemodel.Whitelist.Add("test user");
                 await _context.SaveChangesAsync();
 
-                filemodel.AuditRecords = await _context.AuditRecords.Where(x => x.FileModel.Id == filemodel.Id).ToListAsync();
+                filemodel.AuditRecords = await _context.AuditRecords.Where(x => x.FileModel.Id == filemodel.Id).OrderByDescending(y => y.EventDate).ToListAsync();
            
                 FileModel = filemodel;
             }

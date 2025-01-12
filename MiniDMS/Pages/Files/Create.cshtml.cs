@@ -35,8 +35,17 @@ namespace MiniDMS.Pages.Files
             {
                 return Page();
             }
-
+            if(_id != null) FileModel.ParentId = (int)_id;
             _context.Document.Add(FileModel);
+            var auditRecord = new AuditRecord()
+            {
+                Event = "Create",
+                User = User.Identity.Name,
+                FileModel = FileModel
+            };
+
+            _context.AuditRecords.Add(auditRecord);
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Index");
