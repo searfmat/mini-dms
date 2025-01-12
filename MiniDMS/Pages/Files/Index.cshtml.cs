@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MiniDMS.Data;
 using MiniDMS.Models;
+using System.Collections.Generic;
 
-namespace MiniDMS.Pages.Documents
+namespace MiniDMS.Pages.Files
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +20,11 @@ namespace MiniDMS.Pages.Documents
             _context = context;
         }
 
-        public IList<Document> Document { get;set; } = default!;
+        public IList<FileModel> FileModel { get;set; } = default!;
 
         public async Task OnGetAsync()
-        {
-            Document = await _context.Document.ToListAsync();
+        { 
+            FileModel = await _context.Document.ToListAsync();
         }
     }
 }

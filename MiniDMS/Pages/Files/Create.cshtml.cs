@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniDMS.Data;
 using MiniDMS.Models;
-using NuGet.Protocol.Providers;
 
-namespace MiniDMS.Pages.Documents
+namespace MiniDMS.Pages.Files
 {
     public class CreateModel : PageModel
     {
@@ -19,16 +18,15 @@ namespace MiniDMS.Pages.Documents
         {
             _context = context;
         }
-
-        public string Owner { get; set; }
-        public IActionResult OnGet()
+        public int? _id;
+        public IActionResult OnGet(int? id)
         {
-            Owner = User.Identity.Name;
+            _id = id;
             return Page();
         }
 
         [BindProperty]
-        public Document Document { get; set; } = default!;
+        public FileModel FileModel { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -37,11 +35,20 @@ namespace MiniDMS.Pages.Documents
             {
                 return Page();
             }
+            if(_id != null) FileModel.ParentId = (int)_id;
+            _context.Document.Add(FileModel);
+            var auditRecord = new AuditRecord()
+            {
+                Event = "Create",
+                User = User.Identity.Name,
+                FileModel = FileModel
+            };
 
-            _context.Document.Add(Document);
+            _context.AuditRecords.Add(auditRecord);
+
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
     }
 }

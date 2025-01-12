@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MiniDMS.Data;
 using MiniDMS.Models;
 
-namespace MiniDMS.Pages.Documents
+namespace MiniDMS.Pages.Files
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace MiniDMS.Pages.Documents
         }
 
         [BindProperty]
-        public Document Document { get; set; } = default!;
+        public FileModel FileModel { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,12 @@ namespace MiniDMS.Pages.Documents
                 return NotFound();
             }
 
-            var document =  await _context.Document.FirstOrDefaultAsync(m => m.Id == id);
-            if (document == null)
+            var filemodel =  await _context.Document.FirstOrDefaultAsync(m => m.Id == id);
+            if (filemodel == null)
             {
                 return NotFound();
             }
-            Document = document;
+            FileModel = filemodel;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace MiniDMS.Pages.Documents
                 return Page();
             }
 
-            _context.Attach(Document).State = EntityState.Modified;
+            _context.Attach(FileModel).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace MiniDMS.Pages.Documents
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DocumentExists(Document.Id))
+                if (!FileModelExists(FileModel.Id))
                 {
                     return NotFound();
                 }
@@ -69,7 +69,7 @@ namespace MiniDMS.Pages.Documents
             return RedirectToPage("./Index");
         }
 
-        private bool DocumentExists(int id)
+        private bool FileModelExists(int id)
         {
             return _context.Document.Any(e => e.Id == id);
         }
