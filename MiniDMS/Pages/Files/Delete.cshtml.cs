@@ -59,6 +59,8 @@ namespace MiniDMS.Pages.Files
                     _context.AuditRecords.Remove(auditRecord);
                 }
                 await _context.SaveChangesAsync();
+                System.IO.File.Delete(filemodel.FilePath);
+                
                 _context.Document.Remove(FileModel);
                 await _context.SaveChangesAsync();
             }
