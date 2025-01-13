@@ -10,8 +10,10 @@ namespace MiniDMS.Models
         [DisplayName("Name")]
         public string FileName { get; set; } = String.Empty;
         [DataType(DataType.Date)]
+        [DisplayName("Date Uploaded")]
         public DateTime UploadDate { get; set; } = DateTime.Now;
         [DataType(DataType.Date)]
+        [DisplayName("Document Created Date")]
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public double Version { get; set; } = 1.0;
         public bool IsFolder { get; set; } = false;

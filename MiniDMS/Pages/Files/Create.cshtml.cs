@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace MiniDMS.Pages.Files
 
         [BindProperty]
         public FileModel FileModel { get; set; } = default!;
-
+        [DisplayName("Upload")]
         public IFormFile FormFile { get; set; }
 
         // For more information, see https://aka.ms/RazorPagesCRUD.

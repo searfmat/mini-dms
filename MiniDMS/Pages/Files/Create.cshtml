@@ -5,13 +5,11 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>FileModel</h4>
+<h4>Add Document</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data">
+<div class="d-flex justify-content-center">
+    <div>
+        <form method="post" enctype="multipart/form-data" style="width: 400px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FileModel.FileName" class="control-label"></label>
@@ -49,15 +47,12 @@
                 <input asp-for="FormFile" class="form-control" accept=".pdf, .docx" />
                 <span class=>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="mt-3">
+                <input type="submit" value="Create" class="btn btn-primary float-end" />
+                <a class="btn btn-outline-secondary" asp-area="" asp-route-folder="@Model._id" asp-page="/Index">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-area="" asp-route-folder="@Model._id" asp-page="/Index">Back to List</a>
 </div>
 
 @section Scripts {
