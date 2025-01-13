@@ -36,7 +36,7 @@
                 {
                     <tr>
                         <td>
-                            <a asp-page="" asp-route-folder="@Model._parent"> <i class="bi bi-arrow-left-square mx-3"></i> </a>
+                            <a asp-page="" asp-route-folder="@Model._parent"> <i class="bi bi-arrow-left-square mx-3 text-secondary"></i> </a>
                         </td>
                         <td> </td>
                         <td> </td>
@@ -49,16 +49,16 @@
                        
                         @if (file.IsFolder)
                         {
-                            <th><i class="bi bi-folder mx-3"></i></th>
+                            <th><i class="bi bi-folder-fill text-secondary mx-3"></i></th>
                             <td>
-                                <a asp-page="" asp-route-folder="@file.Id">@file.FileName</a>
+                                <a class="text-dark" asp-page="" asp-route-folder="@file.Id">@file.FileName</a>
                             </td>
                         }
                         else
                         {
-                            <th><i class="bi bi-file-earmark mx-3"></i></th>
+                            <th><i class="bi bi-file-earmark text-secondary mx-3"></i></th>
                             <td>
-                                <a asp-page="Files/Details" asp-route-id="@file.Id">@file.FileName</a>
+                                <a class="text-dark" asp-page="Files/Details" asp-route-id="@file.Id">@file.FileName</a>
                             </td>
                         }
                         <td>@file.UploadDate</td>
