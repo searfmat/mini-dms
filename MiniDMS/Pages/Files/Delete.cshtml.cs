@@ -70,7 +70,7 @@ namespace MiniDMS.Pages.Files
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
     }
 }

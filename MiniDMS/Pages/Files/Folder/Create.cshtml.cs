@@ -29,13 +29,13 @@ namespace MiniDMS.Pages.Files.Folder
         public FileModel FileModel { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? parent)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            if (_parent != null) FileModel.ParentId = (int)_parent;
+            if (parent != null) FileModel.ParentId = (int)parent;
             FileModel.Owner = User.Identity.Name;
             FileModel.IsFolder = true;
             _context.Document.Add(FileModel);

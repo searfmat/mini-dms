@@ -57,7 +57,6 @@ namespace MiniDMS.Pages.Files
 
             try
             {
-                Debug.WriteLine("DEBUGGGGINGGGG::::::  " + FileModel.FilePath);
                 var auditRecord = new AuditRecord()
                 {
                     Event = "Edit",

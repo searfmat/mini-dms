@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,28 +32,28 @@ namespace MiniDMS.Pages.Files
 
         [BindProperty]
         public FileModel FileModel { get; set; } = default!;
-
+        [DisplayName("Upload")]
         public IFormFile FormFile { get; set; }
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            if(_id != null) FileModel.ParentId = (int)_id;
+            if(id != null) FileModel.ParentId = (int)id;
             var userFolder = Path.Combine(environment.WebRootPath, "documents", User.Identity.Name);
             Directory.CreateDirectory(userFolder);
-            var userFile = Path.Combine(userFolder, _id.ToString() +  FormFile.FileName);
+            var userFile = Path.Combine(userFolder, id.ToString() +  FormFile.FileName);
             using var fileStream = new FileStream(userFile, FileMode.Create);
             await FormFile.CopyToAsync(fileStream);
 
 
             FileModel.FilePath = userFile.ToString();
 
-            Debug.WriteLine("DEBUGGGING ::::::::::::::::::::: " + FileModel.FilePath);
+
             FileModel.Owner = User.Identity.Name;
            
             _context.Document.Add(FileModel);

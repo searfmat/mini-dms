@@ -5,64 +5,72 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>FileModel</h4>
+    <h4>Document Details</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
+    <div class="d-flex justify-content-center">
+        <dl style="width: 400px;">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.FileModel.FileName)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FileModel.FileName)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.FileModel.UploadDate)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FileModel.UploadDate)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.FileModel.CreateDate)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FileModel.CreateDate)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.FileModel.Version)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FileModel.Version)
+            ver. @Html.DisplayFor(model => model.FileModel.Version)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-10">
             @Html.DisplayNameFor(model => model.FileModel.Owner)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FileModel.Owner)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FileModel.Whitelist)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FileModel.Whitelist)
-        </dd>
+            <dd class="col-sm-10">
+                <b>Audit Log</b>
+            </dd>
+        <div class="text-center mb-2">
+               
+        </div>
+            
+            <div class="overflow-auto border" style="height: 150px;">
+                @foreach (var audit in Model.FileModel.AuditRecords)
+                {
+                    <p>@audit.Event @audit.EventDate @audit.User</p>
+                }
+
+            </div>
+
+            <div class="mt-2">
+                <a class="w-full btn btn-primary float-start" href="@Url.Page("Details", "Download", new { Model.FileModel.Id })">Download</a>
+                <div class="float-end">
+                    <a class="btn btn-outline-secondary" asp-area="" asp-page="/Index" asp-route-folder="@Model.FileModel.ParentId">Back to List</a> 
+                    <a class="btn btn-outline-primary" asp-page="./Edit" asp-route-id="@Model.FileModel.Id">Edit</a> 
+                    <a class="btn btn-outline-danger" asp-page="./Delete" asp-route-id="@Model.FileModel.Id">Delete</a>
+                </div>
+
+            </div>
     </dl>
-</div>
-<a href="@Url.Page("Details", "Download", new { Model.FileModel.Id })">Download</a>
+       
 
 
-@Model.FileModel.AuditRecords.Count
-<div class="overflow-auto" style="height: 100px;">
-    @foreach (var audit in Model.FileModel.AuditRecords)
-    {
-        <p>@audit.Event @audit.EventDate @audit.User</p>
-    }
 
+
+    </div>
 </div>
 
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.FileModel.Id">Edit</a> |
-    <a asp-area="" asp-page="/Index" asp-route-folder="@Model.FileModel.ParentId">Back to List</a> |
-    <a asp-page="./Delete" asp-route-id="@Model.FileModel.Id">Delete</a>
-</div>

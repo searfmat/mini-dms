@@ -5,15 +5,27 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
+<div>
     @if(User.Identity.IsAuthenticated)
     {
-        <h3>@User.Identity.Name Files</h3>
+        <div>
+            <div class="float-start">
+                <h3>Files</h3>
+
+            </div>
+
+            <div class="float-end pb-3">
+
+            <a class="btn btn-primary" asp-route-id="@Model._folder" asp-page="Files/Create">Add Document</a>
+            <a class="btn btn-secondary" asp-route-parent="@Model._folder" asp-page="Files/Folder/Create">New Folder</a>
+            </div>
+        </div>
+
         <table class="table table-hover border">
             <thead>
                 <tr>
                     <th> </th>
-                    <th>Filename</th>
+                    <th>Name</th>
                     <th>Upload Date</th>
                     <th>Owner</th>
                 </tr>
@@ -24,7 +36,7 @@
                 {
                     <tr>
                         <td>
-                            <a asp-page="" asp-route-folder="@Model._parent"> . . </a>
+                            <a asp-page="" asp-route-folder="@Model._parent"> <i class="bi bi-arrow-left-square mx-3 text-secondary"></i> </a>
                         </td>
                         <td> </td>
                         <td> </td>
@@ -37,16 +49,16 @@
                        
                         @if (file.IsFolder)
                         {
-                            <th><i class="bi bi-folder"></i></th>
+                            <th><i class="bi bi-folder-fill text-secondary mx-3"></i></th>
                             <td>
-                                <a asp-page="" asp-route-folder="@file.Id">@file.FileName</a>
+                                <a class="text-dark" asp-page="" asp-route-folder="@file.Id">@file.FileName</a>
                             </td>
                         }
                         else
                         {
-                            <th><i class="bi bi-file-earmark"></i></th>
+                            <th><i class="bi bi-file-earmark text-secondary mx-3"></i></th>
                             <td>
-                                <a asp-page="Files/Details" asp-route-id="@file.Id">@file.FileName</a>
+                                <a class="text-dark" asp-page="Files/Details" asp-route-id="@file.Id">@file.FileName</a>
                             </td>
                         }
                         <td>@file.UploadDate</td>
@@ -55,13 +67,15 @@
                 }
             </tbody>
         </table>
-        <a class="btn btn-primary" asp-route-id="@Model._folder" asp-page="Files/Create">Add Document</a>
-        <a class="btn btn-secondary" asp-route-parent="@Model._folder" asp-page="Files/Folder/Create">New Folder</a>
-        <a class="btn btn-danger" asp-page="Files/Index">Admin Documents</a>
+
     }
     else
     {
-        <h1>Welcome!</h1>
-        <p>To view your files, please log in or register.</p>
+        <div class="d-flex justify-content-center align-items-center" style="height: 75vh">
+         <div class="text-center">
+                <h1>Welcome!</h1>
+                <p>To view your files, please log in or register.</p>
+         </div>    
+      </div>
     }
 </div>
